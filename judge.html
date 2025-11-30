@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>page3.html</title>
+</head>
+<body>
+  <h1>位置情報によるページ分岐テスト（5地点）</h1>
+  <p>現在地を取得して、設定した5か所の地点のいずれかの半径範囲内か判定します。</p>
+
+  <script>
+    // === 判定対象の地点一覧（5か所） ===
+    // lat: 緯度, lon: 経度, url: 範囲内の時に遷移するページ, range: 半径(m)
+    const locations = [
+      { name: "PointA", lat: 35.68700208, lon: 139.6964407, url: "a.html", range: 200 }, // あおい公園例
+      { name: "PointB", lat: 35.69277062, lon: 139.69425201, url: "b.html", range: 100 }, // LOVE例
+      { name: "PointC", lat: 35.69539334, lon: 139.70071614, url: "c.html", range: 200 }, // ミステリーサーカス例
+      { name: "PointD", lat: 35.68871439, lon: 139.70436931, url: "d.html", range: 200 }, // 天龍寺例
+      { name: "PointE", lat: 35.69122251, lon: 139.69857574, url: "e.html", range: 100 }  // 押上駅例
+    ];
+
+    // 範囲外の遷移先
+    const urlOutside = "far.html";
+    // 位置情報取得失敗時の遷移先
+    const urlMiss = "miss.html";
+
+    // 距離計算 (ハーヴァサイン公式)
+    function getDistance(lat1, lon1, lat2, lon2) {
+      const R = 6371e3; // 地球の半径 (m)
+      const toRad = x => x * Math.PI / 180;
+
+      const φ1 = toRad(lat1);
+      const φ2 = toRad(lat2);
+      const Δφ = toRad(lat2 - lat1);
+      const Δλ = toRad(lon2 - lon1);
+
+      const a = Math.sin(Δφ/2) ** 2 +
+                Math.cos(φ1) * Math.cos(φ2) *
+                Math.sin(Δλ/2) ** 2;
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      return R * c; // 距離 (m)
+    }
+
+    // 位置情報取得と判定
+    navigator.geolocation.getCurrentPosition(pos => {
+      const lat = pos.coords.latitude;
+      const lon = pos.coords.longitude;
+
+      // 各地点との距離を計算し、範囲内の候補を抽出
+      const candidates = locations
+        .map(loc => {
+          const d = getDistance(lat, lon, loc.lat, loc.lon);
+          return { ...loc, distance: d };
+        })
+        .filter(loc => loc.distance <= loc.range);
+
+      // 複数範囲に入る場合は最も近い地点を優先
+      if (candidates.length > 0) {
+        candidates.sort((a, b) => a.distance - b.distance);
+        const target = candidates[0];
+        console.log(`範囲内: ${target.name}, 距離: ${Math.round(target.distance)}m → ${target.url}`);
+        window.location.href = target.url;
+      } else {
+        console.log("全ての地点の範囲外 → far.html へ遷移");
+        window.location.href = urlOutside;
+      }
+    }, err => {
+      alert("位置情報が取得できませんでした: " + err.message);
+      // 位置情報取得に失敗した場合は miss.html に遷移
+      window.location.href = urlMiss;
+    }, {
+      // オプション（必要に応じて調整）
+      enableHighAccuracy: true,  // 可能なら高精度
+      timeout: 10000,            // 最大待ち時間 10秒
+      maximumAge: 0              // キャッシュ位置情報を使わない
+    });
+  </script>
+</body>
+</html>
