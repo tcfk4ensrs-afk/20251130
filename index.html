@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Ueno Mystery Walk</title>
+  <style>
+    body {
+      background: url('ueno-park.jpg') no-repeat center center fixed;
+      background-size: cover;
+      color: #fff;
+      font-family: 'Helvetica Neue', sans-serif;
+      text-align: center;
+    }
+    header {
+      padding: 20px;
+      font-size: 2em;
+      font-weight: bold;
+    }
+    .input-box {
+      margin: 20px auto;
+      width: 60%;
+      background: rgba(0,0,0,0.5);
+      padding: 20px;
+      border-radius: 10px;
+    }
+    input, textarea {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+      border: none;
+      border-radius: 5px;
+    }
+    button {
+      padding: 15px 30px;
+      background: #00a86b;
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      font-size: 1.2em;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #ffd700;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <header>Ueno Mystery Walk</header>
+  <div class="input-box">
+    <h2>チーム名 / タイトル</h2>
+    <input type="text" placeholder="タイトルを入力してください">
+    <h2>概要</h2>
+    <textarea placeholder="概要を入力してください"></textarea>
+    <button onclick="getLocation()">現在地を読み取る</button>
+    <button>謎解きを始める</button>
+  </div>
+
+  <script>
+    function getLocation() {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function(position) {
+          alert("緯度: " + position.coords.latitude + 
+                " 経度: " + position.coords.longitude);
+        });
+      } else {
+        alert("位置情報が利用できません");
+      }
+    }
+  </script>
+</body>
+</html>
