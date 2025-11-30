@@ -18,19 +18,19 @@
       font-size: 2em;
       font-weight: bold;
     }
-    .input-box {
+    .info-box {
       margin: 20px auto;
       width: 60%;
       background: rgba(0,0,0,0.5);
       padding: 20px;
       border-radius: 10px;
     }
-    input, textarea {
-      width: 90%;
-      padding: 10px;
-      margin: 10px 0;
-      border: none;
-      border-radius: 5px;
+    h2 {
+      margin-top: 10px;
+    }
+    p {
+      font-size: 1.1em;
+      line-height: 1.6em;
     }
     button {
       padding: 15px 30px;
@@ -62,13 +62,12 @@
 </head>
 <body>
   <header>Ueno Mystery Walk</header>
-  <div class="input-box">
+  <div class="info-box">
     <h2>チーム名 / タイトル</h2>
-    <!-- 仮タイトル -->
-    <input type="text" value="仮タイトル">
+    <p>仮タイトル：上野公園謎解き探検</p>
     <h2>概要</h2>
-    <!-- 仮概要 -->
-    <textarea>ここに概要が入ります。プログラムで書き換え予定。</textarea>
+    <p>このサイトでは、上野公園周辺を歩きながら謎を解いていく体験ができます。<br>
+       あなたの現在地を読み取り、最寄りの謎解きポイントへ誘導します。</p>
     <button onclick="getLocation()">現在地を読み取る</button>
     <button>謎解きを始める</button>
   </div>
@@ -92,4 +91,5 @@
   </script>
 </body>
 </html>
+
 
