@@ -43,24 +43,38 @@
       background: #ffd700;
       color: #000;
     }
+    footer {
+      margin-top: 50px;
+      padding: 20px;
+    }
+    footer a {
+      color: #ffd700;
+      font-size: 1.2em;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
   <header>Ueno Mystery Walk</header>
   <div class="input-box">
     <h2>チーム名 / タイトル</h2>
-    <input type="text" placeholder="タイトルを入力してください">
+    <!-- 仮タイトルを入れておく -->
+    <input type="text" value="仮タイトル">
     <h2>概要</h2>
-    <textarea placeholder="概要を入力してください"></textarea>
+    <!-- 仮概要を入れておく -->
+    <textarea>ここに概要が入ります。プログラムで書き換え予定。</textarea>
     <button onclick="getLocation()">現在地を読み取る</button>
     <button>謎解きを始める</button>
   </div>
-  
- <!-- フッター部分にリンクを追加 -->
+
+  <!-- フッター部分にリンクを追加 -->
   <footer>
     <a href="nazo1.html">▶ 次の謎へ進む</a>
   </footer>
-  
+
   <script>
     function getLocation() {
       if (navigator.geolocation) {
@@ -75,3 +89,4 @@
   </script>
 </body>
 </html>
+
