@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>謎2 - Ueno Mystery Walk</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #006400, #00a86b, #7fff00);
+      color: #fff;
+      font-family: 'Helvetica Neue', sans-serif;
+      text-align: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    header {
+      padding: 20px;
+      font-size: 2em;
+      font-weight: bold;
+    }
+    .content-box {
+      margin: 20px auto;
+      width: 80%;
+      background: rgba(0,0,0,0.5);
+      padding: 20px;
+      border-radius: 10px;
+      display: none; /* 初期は非表示 */
+    }
+    h2 {
+      margin-top: 10px;
+      font-size: 1.8em;
+    }
+    img {
+      width: 100%;
+      max-width: 900px;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
+    footer {
+      margin-top: 40px;
+      padding: 20px;
+    }
+    footer a {
+      color: #ffd700;
+      font-size: 1.2em;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+    /* ポップアップ背景 */
+    .overlay {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.8); /* 不透過背景 */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+    }
+    .popup {
+      background: #fff;
+      color: #000;
+      padding: 30px;
+      border-radius: 10px;
+      text-align: center;
+      width: 300px;
+    }
+    .popup input {
+      width: 90%;
+      padding: 10px;
+      margin: 10px 0;
+    }
+    .popup button {
+      padding: 10px 20px;
+      background: #00a86b;
+      border: none;
+      border-radius: 5px;
+      color: #fff;
+      cursor: pointer;
+    }
+    .popup button:hover {
+      background: #ffd700;
+      color: #000;
+    }
+  </style>
+</head>
+<body>
+  <header>Ueno Mystery Walk</header>
+
+  <!-- コンテンツ本体 -->
+  <div class="content-box" id="mainContent">
+    <h2>謎2：空に浮かぶもの</h2>
+    <img src="hikou-photo.jpg" alt="謎2のイメージ写真">
+  </div>
+
+  <footer>
+    <a href="index.html">◀ トップページへ戻る</a>
+  </footer>
+
+  <!-- パスワードポップアップ -->
+  <div class="overlay" id="overlay">
+    <div class="popup">
+      <h3>謎1の答えをひらがなで入力してください</h3>
+      <input type="text" id="password" placeholder="パスワード">
+      <button onclick="checkPassword()">送信</button>
+    </div>
+  </div>
+
+  <script>
+    function checkPassword() {
+      const input = document.getElementById("password").value.trim();
+      const validAnswers = ["ひこうせん", "飛行船", "hikousen"];
+      if (validAnswers.includes(input)) {
+        document.getElementById("overlay").style.display = "none";
+        document.getElementById("mainContent").style.display = "block";
+      } else {
+        alert("パスワードが違います。");
+      }
+    }
+  </script>
+</body>
+</html>
