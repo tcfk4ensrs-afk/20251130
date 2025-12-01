@@ -33,6 +33,41 @@
       line-height: 1.6em;
     }
     button {
+      padding: 15px 3<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>Ueno Mystery Walk</title>
+  <style>
+    body {
+      /* 緑系のグラデーション背景 */
+      background: linear-gradient(135deg, #006400, #00a86b, #7fff00);
+      color: #fff;
+      font-family: 'Helvetica Neue', sans-serif;
+      text-align: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    header {
+      padding: 20px;
+      font-size: 2em;
+      font-weight: bold;
+    }
+    .info-box {
+      margin: 20px auto;
+      width: 60%;
+      background: rgba(0,0,0,0.5);
+      padding: 20px;
+      border-radius: 10px;
+    }
+    h2 {
+      margin-top: 10px;
+    }
+    p {
+      font-size: 1.1em;
+      line-height: 1.6em;
+    }
+    button {
       padding: 15px 30px;
       background: #00a86b;
       border: none;
@@ -45,6 +80,41 @@
     button:hover {
       background: #ffd700;
       color: #000;
+    }
+
+    /* ポップアップ用 */
+    .hidden-popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.85);
+      color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      width: 80%;
+      max-width: 400px;
+      z-index: 1000;
+      text-align: center;
+    }
+    .popup-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
+      z-index: 999;
+    }
+    .close-btn {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background: #ffd700;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      color: #000;
+      font-weight: bold;
     }
   </style>
 </head>
@@ -60,6 +130,35 @@
     <button onclick="getLocation()">現在地を読み取る</button>
     <!-- 謎解きを始めるボタンをnazo1.htmlへリンク -->
     <button onclick="location.href='nazo1.html'">謎解きを始める</button>
+
+    <!-- 隠しポップアップ呼び出しボタン -->
+    <button onclick="showPopup('popup1')">秘密のヒント①</button>
+    <button onclick="showPopup('popup2')">秘密のヒント②</button>
+    <button onclick="showPopup('popup3')">秘密のヒント③</button>
+  </div>
+
+  <!-- オーバーレイ -->
+  <div class="popup-overlay" id="overlay"></div>
+
+  <!-- ポップアップ1 -->
+  <div class="hidden-popup" id="popup1">
+    <h2>謎のヒント①</h2>
+    <p>最初の手がかりは「西郷隆盛像」の近くにあるかも…。</p>
+    <button class="close-btn" onclick="closePopup('popup1')">閉じる</button>
+  </div>
+
+  <!-- ポップアップ2 -->
+  <div class="hidden-popup" id="popup2">
+    <h2>謎のヒント②</h2>
+    <p>次の場所は「不忍池」に隠されている秘密を探せ。</p>
+    <button class="close-btn" onclick="closePopup('popup2')">閉じる</button>
+  </div>
+
+  <!-- ポップアップ3 -->
+  <div class="hidden-popup" id="popup3">
+    <h2>謎のヒント③</h2>
+    <p>最後の答えは「東京国立博物館」の門前に待っている。</p>
+    <button class="close-btn" onclick="closePopup('popup3')">閉じる</button>
   </div>
 
   <script>
@@ -73,8 +172,16 @@
         alert("位置情報が利用できません");
       }
     }
+
+    function showPopup(id) {
+      document.getElementById(id).style.display = 'block';
+      document.getElementById('overlay').style.display = 'block';
+    }
+    function closePopup(id) {
+      document.getElementById(id).style.display = 'none';
+      document.getElementById('overlay').style.display = 'none';
+    }
   </script>
 </body>
 </html>
-
 
