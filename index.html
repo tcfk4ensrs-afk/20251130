@@ -55,8 +55,9 @@
       background: transparent;
       border: none;
       cursor: pointer;
-      opacity: 0; /* 完全透明 */
+      opacity: 0; /* 普段は透明 */
     }
+
     /* Uの位置 */
     #btnU {
       top: 25px;
@@ -94,6 +95,16 @@
       max-width: 200px;
       border: 3px solid #ffd700;
       border-radius: 10px;
+    }
+
+    /* 光るアニメーション */
+    @keyframes flash {
+      0% { opacity: 0; }
+      50% { opacity: 0.5; background: rgba(255,255,255,0.5); }
+      100% { opacity: 0; }
+    }
+    .flash {
+      animation: flash 2s ease-in-out;
     }
   </style>
 </head>
@@ -135,7 +146,22 @@
     function showContent(id) {
       document.getElementById(id).style.display = 'block';
     }
+
+    // 30秒ごとに2秒間光らせる処理
+    function flashButtons() {
+      const buttons = document.querySelectorAll('.invisible-btn');
+      buttons.forEach(btn => {
+        btn.classList.add('flash');
+        setTimeout(() => {
+          btn.classList.remove('flash');
+        }, 2000); // 2秒後に解除
+      });
+    }
+
+    // 初回実行
+    setInterval(flashButtons, 30000); // 30秒ごとに繰り返し
   </script>
 </body>
 </html>
+
 
