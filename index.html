@@ -18,6 +18,7 @@
       font-size: 2em;
       font-weight: bold;
       position: relative;
+      transition: color 0.5s ease;
     }
     .info-box {
       margin: 20px auto;
@@ -73,7 +74,7 @@
     }
     /* 位置情報ボタンのさらに下（余裕を持たせて移動） */
     #btnBelowLocation {
-      top: 520px; /* 以前より下に配置 */
+      top: 520px;
       left: 50%;
       transform: translateX(-50%);
       width: 200px;
@@ -112,7 +113,7 @@
   </style>
 </head>
 <body>
-  <header>Ueno Mystery Walk</header>
+  <header id="mainHeader">Ueno Mystery Walk</header>
   <div class="info-box">
     <h2>タイトル</h2>
     <p>上野公園謎解き</p>
@@ -120,7 +121,6 @@
     <p>このサイトでは、上野公園周辺を歩きながら謎を解いていきます。<br>
        あなたの手元にあるタグはどこかとつながっているようです。<br>
    　　 正しい場所へ導いてあげてください。</p>
-    <button onclick="getLocation()">現在地を読み取る</button>
     <button onclick="location.href='nazo1.html'">謎解きを始める</button>
 
     <!-- 出てくる文字や画像 -->
@@ -135,16 +135,28 @@
   <button id="btnBelowLocation" class="invisible-btn" onclick="showContent('imgBelowLocation')"></button>
 
   <script>
-    function getLocation() {
+    // ページ読み込み時に位置情報を自動取得
+    window.onload = function() {
       if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-          alert("緯度: " + position.coords.latitude + 
-                " 経度: " + position.coords.longitude);
-        });
+        navigator.geolocation.getCurrentPosition(
+          function(position) {
+            // 成功時：ヘッダーを赤に
+            document.getElementById("mainHeader").style.color = "red";
+            console.log("緯度: " + position.coords.latitude + 
+                        " 経度: " + position.coords.longitude);
+          },
+          function(error) {
+            // 失敗時：ヘッダーを黄色に
+            document.getElementById("mainHeader").style.color = "yellow";
+            console.warn("位置情報が取得できません: ", error.message);
+          }
+        );
       } else {
-        alert("位置情報が利用できません");
+        // geolocation非対応
+        document.getElementById("mainHeader").style.color = "yellow";
+        console.warn("位置情報が利用できません");
       }
-    }
+    };
 
     function showContent(id) {
       document.getElementById(id).style.display = 'block';
