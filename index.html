@@ -72,13 +72,20 @@
       width: 40px;
       height: 40px;
     }
-    /* 位置情報ボタンのさらに下（余裕を持たせて移動） */
+    /* 位置情報ボタンのさらに下 */
     #btnBelowLocation {
       top: 520px;
       left: 50%;
       transform: translateX(-50%);
       width: 200px;
       height: 40px;
+    }
+    /* 新しい透明ボタンの位置 */
+    #btnExtra {
+      bottom: 30px;
+      left: 30px;
+      width: 60px;
+      height: 60px;
     }
 
     /* 出てくる要素 */
@@ -124,15 +131,17 @@
     <button onclick="location.href='nazo1.html'">謎解きを始める</button>
 
     <!-- 出てくる文字や画像 -->
-    <p id="textU" class="hidden-content">Uの秘密が現れた！</p>
-    <p id="textBoxEdge" class="hidden-content">黒枠の淵に隠されたヒント！</p>
+    <p id="textU" class="hidden-content">パスワードは謎2答えの頭文字</p>
+    <p id="textBoxEdge" class="hidden-content">パスワードは謎3答えの頭文字</p>
     <img id="imgBelowLocation" class="hidden-image" src="images/OIP.jpg" alt="上野公園の写真">
+    <p id="textExtra" class="hidden-content">パスワードは今日見た偉人の頭文字</p>
   </div>
 
-  <!-- 透明ボタン3つ -->
+  <!-- 透明ボタン4つ -->
   <button id="btnU" class="invisible-btn" onclick="showContent('textU')"></button>
   <button id="btnBoxEdge" class="invisible-btn" onclick="showContent('textBoxEdge')"></button>
   <button id="btnBelowLocation" class="invisible-btn" onclick="showContent('imgBelowLocation')"></button>
+  <button id="btnExtra" class="invisible-btn" onclick="showContent('textExtra')"></button>
 
   <script>
     // ページ読み込み時に位置情報を自動取得
@@ -140,19 +149,16 @@
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           function(position) {
-            // 成功時：ヘッダーを赤に
             document.getElementById("mainHeader").style.color = "red";
             console.log("緯度: " + position.coords.latitude + 
                         " 経度: " + position.coords.longitude);
           },
           function(error) {
-            // 失敗時：ヘッダーを黄色に
             document.getElementById("mainHeader").style.color = "yellow";
             console.warn("位置情報が取得できません: ", error.message);
           }
         );
       } else {
-        // geolocation非対応
         document.getElementById("mainHeader").style.color = "yellow";
         console.warn("位置情報が利用できません");
       }
@@ -169,12 +175,12 @@
         btn.classList.add('flash');
         setTimeout(() => {
           btn.classList.remove('flash');
-        }, 2000); // 2秒後に解除
+        }, 2000);
       });
     }
 
-    // 初回実行
-    setInterval(flashButtons, 30000); // 30秒ごとに繰り返し
+    setInterval(flashButtons, 30000);
   </script>
 </body>
 </html>
+
