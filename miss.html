@@ -32,14 +32,14 @@
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0,0,0,0.8); /* 半透明黒背景 */
-      display: none;       /* 初期は非表示 */
-      align-items: center; /* 中央寄せ */
+      background: rgba(0,0,0,0.8);
+      display: none;
+      align-items: center;
       justify-content: center;
       z-index: 1000;
     }
     .popup.active {
-      display: flex;       /* 表示するときはflexで中央配置 */
+      display: flex;
     }
     .popup-content {
       background: white;
@@ -70,6 +70,10 @@
       background: #004c99;
       transform: scale(1.05);
     }
+    #passwordSection {
+      display: none; /* 初期は非表示 */
+      margin-top: 2rem;
+    }
     input[type="password"] {
       padding: 0.5rem;
       width: 80%;
@@ -86,6 +90,13 @@
   </header>
   <main>
     <p>位置情報が確認できませんでした。設定を見直してください。</p>
+
+    <!-- パスワード入力欄（3回通過後に表示） -->
+    <div id="passwordSection">
+      <h2>パスワード入力</h2>
+      <input type="password" id="passwordInput" placeholder="パスワードを入力">
+      <button class="btn" onclick="checkPassword()">送信</button>
+    </div>
   </main>
   <footer>
     &copy; 2025 Chapondice
@@ -96,9 +107,6 @@
     <div class="popup-content">
       <h2>位置情報が取得できません</h2>
       <p>設定から位置情報の利用を許可してください。</p>
-      <input type="password" id="passwordInput" placeholder="パスワードを入力">
-      <button class="btn" onclick="checkPassword()">送信</button>
-      <br>
       <button class="btn" onclick="location.href='index.html'">設定に戻る</button>
       <button class="btn" onclick="showPopup(2)">許可しない</button>
     </div>
@@ -132,6 +140,8 @@
     }
     function closeAllPopups() {
       document.querySelectorAll('.popup').forEach(p => p.classList.remove('active'));
+      // 3回通過後にパスワード欄を表示
+      document.getElementById('passwordSection').style.display = 'block';
     }
 
     // パスワードチェック
