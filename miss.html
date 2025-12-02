@@ -70,6 +70,14 @@
       background: #004c99;
       transform: scale(1.05);
     }
+    input[type="password"] {
+      padding: 0.5rem;
+      width: 80%;
+      margin: 1rem 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+      font-size: 1rem;
+    }
   </style>
 </head>
 <body>
@@ -88,6 +96,9 @@
     <div class="popup-content">
       <h2>位置情報が取得できません</h2>
       <p>設定から位置情報の利用を許可してください。</p>
+      <input type="password" id="passwordInput" placeholder="パスワードを入力">
+      <button class="btn" onclick="checkPassword()">送信</button>
+      <br>
       <button class="btn" onclick="location.href='index.html'">設定に戻る</button>
       <button class="btn" onclick="showPopup(2)">許可しない</button>
     </div>
@@ -122,6 +133,17 @@
     function closeAllPopups() {
       document.querySelectorAll('.popup').forEach(p => p.classList.remove('active'));
     }
+
+    // パスワードチェック
+    function checkPassword() {
+      const input = document.getElementById('passwordInput').value;
+      if (input === "OIP") {
+        location.href = "clear.html";
+      } else {
+        alert("パスワードが違います");
+      }
+    }
   </script>
 </body>
 </html>
+
