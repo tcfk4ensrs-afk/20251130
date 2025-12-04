@@ -104,7 +104,7 @@
   <div class="overlay" id="overlay">
     <div class="popup">
       <h3>ぽっけの魂を転送します。<br>
-        何を使ってここにやってきた？</h3>
+        あなたは何を使ってここにやってきた？</h3>
       <input type="text" id="password" placeholder="パスワード">
       <button onclick="checkPassword()">送信</button>
     </div>
@@ -113,7 +113,7 @@
   <script>
     function checkPassword() {
       const input = document.getElementById("password").value.trim();
-      const validAnswers = ["google", "google map", "徒歩","ぽっけ","地図"];
+      const validAnswers = ["google", "google map", "徒歩","ぽっけ","地図","map"];
       if (validAnswers.includes(input)) {
         document.getElementById("overlay").style.display = "none";
         document.getElementById("mainContent").style.display = "block";
