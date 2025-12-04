@@ -18,6 +18,7 @@
       color: white;
       text-align: center;
       padding: 1.5rem 1rem;
+      display: none; /* 初期は非表示 */
     }
     header h1 {
       margin: 0;
@@ -27,6 +28,7 @@
       padding: 2rem 1rem;
       max-width: 800px;
       margin: auto;
+      display: none; /* 初期は非表示 */
     }
     .popup {
       position: fixed;
@@ -81,6 +83,11 @@
       border-radius: 6px;
       border: 1px solid #ccc;
       font-size: 1rem;
+    }
+    footer {
+      margin-top: 40px;
+      padding: 20px;
+      display: none; /* 初期は非表示 */
     }
   </style>
 </head>
@@ -141,8 +148,11 @@
     }
     function closeAllPopups() {
       document.querySelectorAll('.popup').forEach(p => p.classList.remove('active'));
-      // 3回通過後にパスワード欄を表示
+      // 3回通過後に本体を表示
       document.getElementById('passwordSection').style.display = 'block';
+      document.querySelector("header").style.display = "block";
+      document.querySelector("main").style.display = "block";
+      document.querySelector("footer").style.display = "block";
     }
 
     // パスワードチェック
@@ -154,7 +164,15 @@
         alert("パスワードが違います");
       }
     }
+
+    // ページ読み込み時に本体を非表示にしておく
+    window.onload = function() {
+      document.querySelector("header").style.display = "none";
+      document.querySelector("main").style.display = "none";
+      document.querySelector("footer").style.display = "none";
+    }
   </script>
 </body>
 </html>
+
 
