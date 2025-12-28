@@ -56,23 +56,20 @@
       background: transparent;
       border: none;
       cursor: pointer;
-      opacity: 0; /* 普段は透明 */
+      opacity: 0;
     }
-    /* Uの位置 */
     #btnU {
       top: 25px;
       left: 20px;
       width: 40px;
       height: 40px;
     }
-    /* 黒枠の右淵近く */
     #btnBoxEdge {
       top: 220px;
       right: 20px;
       width: 40px;
       height: 40px;
     }
-    /* 位置情報ボタンのさらに下 */
     #btnBelowLocation {
       top: 600px;
       left: 50%;
@@ -80,7 +77,6 @@
       width: 200px;
       height: 40px;
     }
-    /* 新しい透明ボタンの位置 */
     #btnExtra {
       top: 860px;
       left: 100px;
@@ -88,7 +84,6 @@
       height: 60px;
     }
 
-    /* 出てくる要素 */
     .hidden-content {
       display: none;
       margin-top: 15px;
@@ -97,7 +92,7 @@
       color: #ffd700;
     }
     .hidden-image {
-     display: none;
+      display: none;
       position: fixed;
       top: 20%;
       left: 50%;
@@ -106,11 +101,10 @@
       padding: 20px;
       border-radius: 10px;
       z-index: 2000;
-      width: 500px;   /* 横幅を300pxに固定 */
-  height: auto;   /* 縦横比を維持して高さを自動調整 */
+      width: 500px;
+      height: auto;
     }
 
-    /* 光るアニメーション */
     @keyframes flash {
       0% { opacity: 0; }
       50% { opacity: 0.5; background: rgba(255,255,255,0.5); }
@@ -119,51 +113,75 @@
     .flash {
       animation: flash 2s ease-in-out;
     }
+
+    /* ▼▼ 追加：ヒントリンク ▼▼ */
+    footer {
+      margin-top: 60px;
+      padding: 20px;
+    }
+    .hint-link {
+      display: inline-block;
+      margin-top: 20px;
+      padding: 12px 25px;
+      background: rgba(0,0,0,0.4);
+      border-radius: 8px;
+      color: #ffd700;
+      font-size: 1.2em;
+      text-decoration: none;
+    }
+    .hint-link:hover {
+      background: rgba(255,255,255,0.3);
+    }
+    /* ▲▲ 追加ここまで ▲▲ */
+
   </style>
 </head>
 <body>
   <header id="mainHeader">Ueno Mystery Walk</header>
+
   <div class="info-box">
     <h2>タイトル</h2>
     <p>上野公園謎解き~迷子のぽっけのお見送り~</p>
+
     <h2>概要</h2>
     <p>ぽっけが行きたいと思うところに連れて行ってあげよう<br>
        ぽっけと会話はできませんが、ぽっけの背中にスマホを当てることで<br>
-   　　 その場所が行きたい場所と気持ちを教えてくれます。<br>
-        さあ最初の場所に連れて行ってあげて</p>
+       その場所が行きたい場所と気持ちを教えてくれます。<br>
+       さあ最初の場所に連れて行ってあげて</p>
+
     <button onclick="location.href='nazo1.html'">最初の場所への手がかり</button>
 
-    <!-- 出てくる文字や画像 -->
     <p id="textU" class="hidden-content">パスワードは謎2答えの頭文字</p>
     <p id="textBoxEdge" class="hidden-content">パスワードは謎3答えの頭文字</p>
     <img id="imgBelowLocation" class="hidden-image" src="images/OIP.jpg" alt="上野公園の写真">
     <p id="textExtra" class="hidden-content">パスワードは今日見た偉人の頭文字</p>
   </div>
 
-  <!-- 透明ボタン4つ -->
+  <!-- 透明ボタン -->
   <button id="btnU" class="invisible-btn" onclick="showContent('textU')"></button>
   <button id="btnBoxEdge" class="invisible-btn" onclick="showContent('textBoxEdge')"></button>
   <button id="btnBelowLocation" class="invisible-btn" onclick="showContent('imgBelowLocation')"></button>
   <button id="btnExtra" class="invisible-btn" onclick="showContent('textExtra')"></button>
 
+  <!-- ▼▼ 追加：ヒントリンク ▼▼ -->
+  <footer>
+    <a href="hint.html" class="hint-link">ヒント</a>
+  </footer>
+  <!-- ▲▲ 追加ここまで ▲▲ -->
+
   <script>
-    // ページ読み込み時に位置情報を自動取得
     window.onload = function() {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(
           function(position) {
             document.getElementById("mainHeader").style.color = "red";
-            console.log("緯度: " + position.coords.latitude + 
-                        " 経度: " + position.coords.longitude);
           },
           function(error) {
             document.getElementById("mainHeader").style.color = "yellow";
-            console.warn("位置情報が取得できません: ", error.message);
           }
         );
       } else {
         document.getElementById("mainHeader").style.color = "yellow";
-        console.warn("位置情報が利用できません");
       }
     };
 
@@ -171,19 +189,14 @@
       document.getElementById(id).style.display = 'block';
     }
 
-    // 30秒ごとに2秒間光らせる処理
     function flashButtons() {
       const buttons = document.querySelectorAll('.invisible-btn');
       buttons.forEach(btn => {
         btn.classList.add('flash');
-        setTimeout(() => {
-          btn.classList.remove('flash');
-        }, 2000);
+        setTimeout(() => btn.classList.remove('flash'), 2000);
       });
     }
-
     setInterval(flashButtons, 30000);
   </script>
 </body>
 </html>
-
