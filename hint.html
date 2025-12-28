@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>ヒント - Ueno Mystery Walk</title>
+  <style>
+    body {
+      background: linear-gradient(135deg, #006400, #00a86b, #7fff00);
+      color: #fff;
+      font-family: 'Helvetica Neue', sans-serif;
+      text-align: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+    header {
+      padding: 20px;
+      font-size: 2em;
+      font-weight: bold;
+    }
+    .container {
+      width: 80%;
+      margin: 20px auto;
+      background: rgba(0,0,0,0.5);
+      padding: 20px;
+      border-radius: 10px;
+      text-align: left;
+    }
+
+    /* 謎タイトルボタン */
+    .nazo-btn {
+      width: 100%;
+      background: #00a86b;
+      color: #fff;
+      padding: 15px;
+      font-size: 1.3em;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+      text-align: left;
+    }
+    .nazo-btn:hover {
+      background: #ffd700;
+      color: #000;
+    }
+
+    /* タブエリア */
+    .tab-area {
+      display: none;
+      margin-top: 10px;
+      padding: 10px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 8px;
+    }
+
+    /* ヒントタブ */
+    .hint-tab {
+      background: #333;
+      color: #fff;
+      padding: 10px 15px;
+      margin-right: 10px;
+      border-radius: 6px;
+      cursor: pointer;
+      display: inline-block;
+    }
+    .hint-tab:hover {
+      background: #ffd700;
+      color: #000;
+    }
+
+    /* ヒント内容 */
+    .hint-content {
+      display: none;
+      margin-top: 15px;
+      padding: 15px;
+      background: rgba(0,0,0,0.4);
+      border-radius: 8px;
+      font-size: 1.2em;
+    }
+
+    footer {
+      margin-top: 40px;
+      padding: 20px;
+    }
+    footer a {
+      color: #ffd700;
+      font-size: 1.2em;
+      text-decoration: none;
+    }
+    footer a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+<header>ヒント一覧 - Ueno Mystery Walk</header>
+
+<div class="container">
+
+  <!-- ▼ 謎1 ▼ -->
+  <button class="nazo-btn" onclick="toggleTab('nazo1')">謎1</button>
+  <div id="nazo1" class="tab-area">
+    <span class="hint-tab" onclick="showHint('n1h1')">ヒント1</span>
+    <span class="hint-tab" onclick="showHint('n1h2')">ヒント2</span>
+
+    <div id="n1h1" class="hint-content">謎1のヒント1：ここにヒントの文章が入ります。</div>
+    <div id="n1h2" class="hint-content">謎1のヒント2：もう少し詳しいヒントが入ります。</div>
+  </div>
+
+  <!-- ▼ 謎2 ▼ -->
+  <button class="nazo-btn" onclick="toggleTab('nazo2')">謎2</button>
+  <div id="nazo2" class="tab-area">
+    <span class="hint-tab" onclick="showHint('n2h1')">ヒント1</span>
+    <span class="hint-tab" onclick="showHint('n2h2')">ヒント2</span>
+
+    <div id="n2h1" class="hint-content">謎2のヒント1：ここにヒントの文章が入ります。</div>
+    <div id="n2h2" class="hint-content">謎2のヒント2：もう少し詳しいヒントが入ります。</div>
+  </div>
+
+  <!-- ▼ 謎3 ▼ -->
+  <button class="nazo-btn" onclick="toggleTab('nazo3')">謎3</button>
+  <div id="nazo3" class="tab-area">
+    <span class="hint-tab" onclick="showHint('n3h1')">ヒント1</span>
+    <span class="hint-tab" onclick="showHint('n3h2')">ヒント2</span>
+
+    <div id="n3h1" class="hint-content">謎3のヒント1：ここにヒントの文章が入ります。</div>
+    <div id="n3h2" class="hint-content">謎3のヒント2：もう少し詳しいヒントが入ります。</div>
+  </div>
+
+  <!-- ▼ 謎4 ▼ -->
+  <button class="nazo-btn" onclick="toggleTab('nazo4')">謎4</button>
+  <div id="nazo4" class="tab-area">
+    <span class="hint-tab" onclick="showHint('n4h1')">ヒント1</span>
+    <span class="hint-tab" onclick="showHint('n4h2')">ヒント2</span>
+
+    <div id="n4h1" class="hint-content">謎4のヒント1：ここにヒントの文章が入ります。</div>
+    <div id="n4h2" class="hint-content">謎4のヒント2：もう少し詳しいヒントが入ります。</div>
+  </div>
+
+  <!-- ▼ 謎5 ▼ -->
+  <button class="nazo-btn" onclick="toggleTab('nazo5')">謎5</button>
+  <div id="nazo5" class="tab-area">
+    <span class="hint-tab" onclick="showHint('n5h1')">ヒント1</span>
+    <span class="hint-tab" onclick="showHint('n5h2')">ヒント2</span>
+
+    <div id="n5h1" class="hint-content">謎5のヒント1：ここにヒントの文章が入ります。</div>
+    <div id="n5h2" class="hint-content">謎5のヒント2：もう少し詳しいヒントが入ります。</div>
+  </div>
+
+</div>
+
+<footer>
+  <a href="index.html">◀ トップページへ戻る</a>
+</footer>
+
+<script>
+  // タブ開閉
+  function toggleTab(id) {
+    const tab = document.getElementById(id);
+    tab.style.display = (tab.style.display === "block") ? "none" : "block";
+  }
+
+  // ヒント表示
+  function showHint(id) {
+    // 全ヒント非表示
+    document.querySelectorAll('.hint-content').forEach(el => el.style.display = 'none');
+    // 指定ヒントだけ表示
+    document.getElementById(id).style.display = 'block';
+  }
+</script>
+
+</body>
+</html>
