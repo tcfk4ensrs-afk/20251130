@@ -35,6 +35,37 @@
       border-radius: 10px;
       margin-top: 20px;
     }
+
+    /* 回答フォーム */
+    .answer-box {
+      margin-top: 25px;
+    }
+    .answer-box input {
+      width: 70%;
+      padding: 10px;
+      font-size: 1.2em;
+      border-radius: 5px;
+      border: none;
+    }
+    .answer-box button {
+      padding: 10px 20px;
+      font-size: 1.2em;
+      margin-left: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #ffd700;
+      color: #000;
+      cursor: pointer;
+    }
+    .answer-box button:hover {
+      background-color: #ffea70;
+    }
+    #answerMessage {
+      margin-top: 15px;
+      font-size: 1.4em;
+      font-weight: bold;
+    }
+
     footer {
       margin-top: 40px;
       padding: 20px;
@@ -54,12 +85,33 @@
 
   <div class="content-box">
     <h2>謎1：上野公園の秘密</h2>
-    <!-- 横長の写真をここに配置 -->
     <img src="images/1.jpg" alt="謎1のイメージ写真">
+
+    <!-- 回答フォーム -->
+    <div class="answer-box">
+      <input type="text" id="answerInput" placeholder="答えを入力">
+      <button id="submitAnswer">送信</button>
+    </div>
+    <p id="answerMessage"></p>
   </div>
 
   <footer>
     <a href="index.html">◀ トップページへ戻る</a>
   </footer>
+
+  <script>
+    document.getElementById("submitAnswer").addEventListener("click", () => {
+      const userAnswer = document.getElementById("answerInput").value.trim();
+      const correctAnswers = ["ひこうせん", "ききゅう", "飛行船", "気球"];
+
+      if (correctAnswers.includes(userAnswer)) {
+        document.getElementById("answerMessage").textContent = "正解！";
+        document.getElementById("answerMessage").style.color = "#00ff90";
+      } else {
+        document.getElementById("answerMessage").textContent = "違うよ。もう一度試してね。";
+        document.getElementById("answerMessage").style.color = "#ff8080";
+      }
+    });
+  </script>
 </body>
 </html>
