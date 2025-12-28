@@ -23,7 +23,7 @@
       background: rgba(0,0,0,0.5);
       padding: 20px;
       border-radius: 10px;
-      display: none; /* 初期は非表示 */
+      display: none;
     }
     h2 {
       margin-top: 10px;
@@ -47,12 +47,43 @@
     footer a:hover {
       text-decoration: underline;
     }
+
+    /* 回答フォーム */
+    .answer-box {
+      margin-top: 25px;
+    }
+    .answer-box input {
+      width: 70%;
+      padding: 10px;
+      font-size: 1.2em;
+      border-radius: 5px;
+      border: none;
+    }
+    .answer-box button {
+      padding: 10px 20px;
+      font-size: 1.2em;
+      margin-left: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #ffd700;
+      color: #000;
+      cursor: pointer;
+    }
+    .answer-box button:hover {
+      background-color: #ffea70;
+    }
+    #answerMessage {
+      margin-top: 15px;
+      font-size: 1.4em;
+      font-weight: bold;
+    }
+
     /* ポップアップ背景 */
     .overlay {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
-      background: rgba(0,0,0,0.8); /* 不透過背景 */
+      background: rgba(0,0,0,0.8);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -91,7 +122,14 @@
   <!-- コンテンツ本体 -->
   <div class="content-box" id="mainContent">
     <h2>謎4：神社？寺？</h2>
-    <img src="images/4.jpg" alt="謎2のイメージ写真">
+    <img src="images/4.jpg" alt="謎4のイメージ写真">
+
+    <!-- 回答フォーム -->
+    <div class="answer-box">
+      <input type="text" id="answerInput" placeholder="答えを入力">
+      <button id="submitAnswer">送信</button>
+    </div>
+    <p id="answerMessage"></p>
   </div>
 
   <footer>
@@ -111,7 +149,7 @@
   <script>
     function checkPassword() {
       const input = document.getElementById("password").value.trim();
-      const validAnswers = ["ぼたんえん", "ぼたん苑", "上野東照宮","上野東照宮ぼたん苑","牡丹苑"];
+      const validAnswers = ["ぼたんえん", "ぼたん苑", "上野東照宮", "上野東照宮ぼたん苑", "牡丹苑"];
       if (validAnswers.includes(input)) {
         document.getElementById("overlay").style.display = "none";
         document.getElementById("mainContent").style.display = "block";
@@ -119,6 +157,20 @@
         alert("パスワードが違います。");
       }
     }
+
+    // 謎4の回答チェック
+    document.getElementById("submitAnswer").addEventListener("click", () => {
+      const userAnswer = document.getElementById("answerInput").value.trim();
+      const correctAnswer = "たかもり";
+
+      if (userAnswer === correctAnswer) {
+        document.getElementById("answerMessage").textContent = "正解！";
+        document.getElementById("answerMessage").style.color = "#00ff90";
+      } else {
+        document.getElementById("answerMessage").textContent = "違うよ。もう一度試してね。";
+        document.getElementById("answerMessage").style.color = "#ff8080";
+      }
+    });
   </script>
 </body>
 </html>
