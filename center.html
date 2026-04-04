@@ -114,7 +114,7 @@
   <script>
     function checkPassword() {
       const input = document.getElementById("password").value.trim();
-      const validAnswers = ["google", "google map", "徒歩","ぽっけ","地図","map"];
+      const validAnswers = ["google", "googlemap", "徒歩","ぽっけ","地図","map", "google map"];
       if (validAnswers.includes(input)) {
         document.getElementById("overlay").style.display = "none";
         document.getElementById("mainContent").style.display = "block";
