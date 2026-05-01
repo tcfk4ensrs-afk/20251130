@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>準備確認 - 謎解きキット</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; line-height: 1.6; background: #f4f4f4; }
+        .card { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        h2 { border-bottom: 2px solid #333; padding-bottom: 5px; }
+        .status { font-weight: bold; padding: 5px 10px; border-radius: 5px; }
+        .ok { background: #d4edda; color: #155724; }
+        .ng { background: #f8d7da; color: #721c24; }
+        .check-btn { display: block; width: 100%; padding: 15px; background: #333; color: white; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; }
+        .next-btn { display: none; text-align: center; margin-top: 20px; text-decoration: none; background: #007bff; color: white; padding: 15px; border-radius: 5px; }
+    </style>
+</head>
+<body>
+
+<div class="card">
+    <h2>1. 位置情報の確認</h2>
+    <p>現在の状態: <span id="geo-status" class="status">未確認</span></p>
+    <small>※「常に許可」の判定はブラウザ仕様上難しいため、アクセス許可が取れるかを確認します。</small>
+</div>
+
+<div class="card">
+    <h2>2. NFC機能の確認</h2>
+    <p>現在の状態: <span id="nfc-status" class="status">未確認</span></p>
+    <small>※Android (Chrome) のみ対応。iPhoneはブラウザ側の制限により動作しません。</small>
+</div>
+
+<button id="check-all" class="check-btn">設定をチェックする</button>
+
+<a href="index.html" id="next-link" class="next-btn">ゲームを始める！</a>
+
+<script>
+    const checkBtn = document.getElementById('check-all');
+    const nextBtn = document.getElementById('next-link');
+    const geoStatus = document.getElementById('geo-status');
+    const nfcStatus = document.getElementById('nfc-status');
+
+    checkBtn.addEventListener('click', async () => {
+        // --- 1. 位置情報のチェック ---
+        if (!navigator.geolocation) {
+            updateStatus(geoStatus, "非対応", false);
+        } else {
+            geoStatus.innerText = "確認中...";
+            navigator.geolocation.getCurrentPosition(
+                () => { updateStatus(geoStatus, "許可済み OK", true); checkComplete(); },
+                (err) => { updateStatus(geoStatus, "拒否またはエラー (設定を確認してください)", false); }
+            );
+        }
+
+        // --- 2. NFCのチェック ---
+        if (!('NDEFReader' in window)) {
+            updateStatus(nfcStatus, "非対応（iPhoneまたは非対応ブラウザです）", false);
+        } else {
+            nfcStatus.innerText = "確認中...";
+            try {
+                // スキャンを開始しようとすることで、権限と本体設定を確認
+                const nfcReader = new NDEFReader();
+                await nfcReader.scan(); 
+                updateStatus(nfcStatus, "使用可能 OK", true);
+                checkComplete();
+            } catch (error) {
+                updateStatus(nfcStatus, "設定OFFまたは拒否されています", false);
+            }
+        }
+    });
+
+    function updateStatus(el, text, isOk) {
+        el.innerText = text;
+        el.className = isOk ? "status ok" : "status ng";
+    }
+
+    function checkComplete() {
+        // 両方（または一方が動作環境外でも進ませる場合は条件調整）がOKなら次へ
+        if (geoStatus.classList.contains('ok')) {
+            nextBtn.style.display = "block";
+        }
+    }
+</script>
+
+</body>
+</html>
