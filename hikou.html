@@ -171,24 +171,27 @@
     }
 
     // 謎2の回答チェック
-    document.getElementById("submitAnswer").addEventListener("click", () => {
-      const userAnswer = document.getElementById("answerInput").value.trim();
-      const correctAnswers = [
-        "goghkazoku",
-        "gogh kazoku",
-        "gogh 家族",
-        "gogh かぞく",
-        "ゴッホ 家族"
-      ];
+   document.getElementById("submitAnswer").addEventListener("click", () => {
+  // .trim() で空白を除去し、.toLowerCase() で大文字を小文字に変換します
+  const userAnswer = document.getElementById("answerInput").value.trim().toLowerCase();
+  
+  const correctAnswers = [
+    "goghkazoku",
+    "gogh kazoku",
+    "gogh 家族",
+    "gogh かぞく",
+    "ゴッホ 家族"
+  ];
 
-      if (correctAnswers.includes(userAnswer)) {
-        document.getElementById("answerMessage").textContent = "正解！";
-        document.getElementById("answerMessage").style.color = "#00ff90";
-      } else {
-        document.getElementById("answerMessage").textContent = "違うよ。もう一度試してね。";
-        document.getElementById("answerMessage").style.color = "#ff8080";
-      }
-    });
-  </script>
-</body>
-</html>
+  // userAnswerが小文字に統一されているため、"GOGH" と入力しても一致判定されます
+  if (correctAnswers.includes(userAnswer)) {
+    document.getElementById("answerMessage").textContent = "正解！";
+    document.getElementById("answerMessage").style.color = "#00ff90";
+    
+    // 必要に応じてここにクリア画面への遷移を追加してください
+    // location.href = "clear.html"; 
+  } else {
+    document.getElementById("answerMessage").textContent = "違うよ。もう一度試してね。";
+    document.getElementById("answerMessage").style.color = "#ff8080";
+  }
+}); 
