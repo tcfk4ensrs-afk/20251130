@@ -162,19 +162,22 @@
       }
     }
 
-    // 謎3の回答チェック
-    document.getElementById("submitAnswer").addEventListener("click", () => {
-      const userAnswer = document.getElementById("answerInput").value.trim();
-      const correctAnswers = ["peony", "botan", "ぼたん"];
+ // 謎3の回答チェック
+  document.getElementById("submitAnswer").addEventListener("click", () => {
+    // .toLowerCase() を追加して大文字を小文字に変換します
+    const userAnswer = document.getElementById("answerInput").value.trim().toLowerCase();
+    
+    // 比較用の英字（peony, botan）は小文字で記述しておきます
+    const correctAnswers = ["peony", "botan", "ぼたん"];
 
-      if (correctAnswers.includes(userAnswer)) {
-        document.getElementById("answerMessage").textContent = "正解！次行く場所は中まで入って近くに行ってね";
-        document.getElementById("answerMessage").style.color = "#00ff90";
-      } else {
-        document.getElementById("answerMessage").textContent = "違うよ。もう一度試してね。";
-        document.getElementById("answerMessage").style.color = "#ff8080";
-      }
-    });
-  </script>
+    if (correctAnswers.includes(userAnswer)) {
+      document.getElementById("answerMessage").textContent = "正解！次行く場所は中まで入って近くに行ってね";
+      document.getElementById("answerMessage").style.color = "#00ff90";
+    } else {
+      document.getElementById("answerMessage").textContent = "違うよ。もう一度試してね。";
+      document.getElementById("answerMessage").style.color = "#ff8080";
+    }
+  });
+</script>
 </body>
 </html>
